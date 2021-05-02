@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Difficulty">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/TxtTitle"
+            android:text="Khó"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:padding="30sp"
+            android:gravity="center_horizontal"
+            android:textColor="#000000"
+            />
+
+        <ImageView
+            android:layout_width="300sp"
+            android:layout_height="300sp"
+            android:id="@+id/ImgPlayer"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Txt1"
+            android:text="Answer:"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:padding="30sp"
+            android:textColor="#000000"
+            android:gravity="center_horizontal" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
