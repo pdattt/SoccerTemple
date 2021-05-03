@@ -1,10 +1,12 @@
 package com.son.soccertemple.quizDif;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
@@ -23,14 +25,16 @@ import java.util.Random;
 
 public class quiz_easy extends Activity {
     private ArrayList<Player> list = new ArrayList<>();
+    private ArrayList<Player> quizList = new ArrayList<>();
     //private Stack<Player> playerQuiz = new Stack<>();
     ImageView Image;
     Button AnswerA, AnswerB, AnswerC, AnswerD;
     Player correctAnswer;
+    LinearLayout layout;
     int pos = 0;
     int res = 0;
     int score = 0;
-    View v;
+    int point = 50;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,12 +42,12 @@ public class quiz_easy extends Activity {
         setContentView(R.layout.quiz_easy);
 
         Mapping();
-        CreatePlayerList();
-        Collections.shuffle(list);
 
         //Receive bundle package
         //Create a list with a parameter is the number of the quiz
         int number = 5;
+
+        CreatePlayerList(number);
 
         Display(pos);
         onClick(number);
@@ -51,13 +55,21 @@ public class quiz_easy extends Activity {
 
     public void onClick(final int number) {
 
+        final Intent intent;
+
         AnswerA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(AnswerA.getText().toString().equals(correctAnswer.getName())) res++;
+                if(AnswerA.getText().toString().equals(correctAnswer.getName())) {
+                    res++;
+                    score += point;
+                }
                 pos++;
-                if(pos >= number)
-                    finish();
+                if(pos >= number) {
+                    layout.removeAllViews();
+                    //Add res and score to bundle package
+                    //start result Activity
+                }
                 Display(pos);
             }
         });
@@ -100,8 +112,14 @@ public class quiz_easy extends Activity {
         Random rand = new Random();
         ArrayList<String> listAnswer = new ArrayList<>();
 
-        correctAnswer = list.get(pos);
+        correctAnswer = quizList.get(pos);
         listAnswer.add(correctAnswer.getName());
+
+        String ImgID = "uncen_" + correctAnswer.getID().toString();
+
+        int src = getResources().getIdentifier(ImgID, "drawable", getPackageName());
+
+        Image.setImageResource(src);
 
         int i = 0;
 
@@ -140,10 +158,10 @@ public class quiz_easy extends Activity {
         AnswerB = findViewById(R.id.BtnAnswerB);
         AnswerC = findViewById(R.id.BtnAnswerC);
         AnswerD = findViewById(R.id.BtnAnswerD);
+        layout = findViewById(R.id.layoutEasy);
     }
 
-
-    private void CreatePlayerList() {
+    private void CreatePlayerList(int number) {
         try {
             String splitBy = ", ";
             FileInputStream in = this.openFileInput("players.csv");
@@ -163,8 +181,13 @@ public class quiz_easy extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+        Collections.shuffle(list);
+
+        for(int i = 0; i <= number; i++) {
+            quizList.add(list.get(i));
+        }
+    }
 }
 
 
