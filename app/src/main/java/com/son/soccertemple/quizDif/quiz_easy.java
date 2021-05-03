@@ -2,6 +2,7 @@ package com.son.soccertemple.quizDif;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -25,9 +26,11 @@ public class quiz_easy extends Activity {
     //private Stack<Player> playerQuiz = new Stack<>();
     ImageView Image;
     Button AnswerA, AnswerB, AnswerC, AnswerD;
+    Player correctAnswer;
     int pos = 0;
     int res = 0;
     int score = 0;
+    View v;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,23 +46,70 @@ public class quiz_easy extends Activity {
         int number = 5;
 
         Display(pos);
+        onClick(number);
     }
 
+    public void onClick(final int number) {
+
+        AnswerA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(AnswerA.getText().toString().equals(correctAnswer.getName())) res++;
+                pos++;
+                if(pos >= number)
+                    finish();
+                Display(pos);
+            }
+        });
+
+        AnswerB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(AnswerB.getText().toString().equals(correctAnswer.getName())) res++;
+                pos++;
+                if(pos >= number)
+                    finish();
+                Display(pos);
+            }
+        });
+
+        AnswerC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(AnswerC.getText().toString().equals(correctAnswer.getName())) res++;
+                pos++;
+                if(pos >= number)
+                    finish();
+                Display(pos);
+            }
+
+        });AnswerD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(AnswerD.getText().toString().equals(correctAnswer.getName())) res++;
+                pos++;
+                if(pos >= number)
+                    finish();
+                Display(pos);
+            }
+        });
+        //if(pos >= number)
+    }
 
     private void Display(int pos) {
         Random rand = new Random();
         ArrayList<String> listAnswer = new ArrayList<>();
 
-        Player correctAnswer = new Player();
         correctAnswer = list.get(pos);
         listAnswer.add(correctAnswer.getName());
 
 
         int i = 0;
+
         while(i < 3){
             Player wrongAnswer = list.get(rand.nextInt(50));
 
-            if(!CheckDupAnswer(listAnswer))
+            if(!CheckDupAnswer(listAnswer, wrongAnswer))
                 continue;
 
             listAnswer.add(wrongAnswer.getName());
@@ -78,24 +128,22 @@ public class quiz_easy extends Activity {
 
     }
 
-    private Boolean CheckDupAnswer(List<String> listAnswer) {
+    private Boolean CheckDupAnswer(List<String> listAnswer, Player player) {
 
         for(int i = 0; i < listAnswer.size(); i++) {
-            for(int j = i + 1; j < listAnswer.size(); j++) {
-                if(listAnswer.get(i).equals(listAnswer.get(j)))
-                    return false;
-            }
+            if(listAnswer.get(i).equals(player.getName()))
+                return false;
         }
 
         return true;
     }
 
     private void Mapping() {
-        Image = (ImageView)findViewById(R.id.ImgPlayer);
-        AnswerA = (Button)findViewById(R.id.BtnAnswerA);
-        AnswerB = (Button)findViewById(R.id.BtnAnswerB);
-        AnswerC = (Button)findViewById(R.id.BtnAnswerC);
-        AnswerD = (Button)findViewById(R.id.BtnAnswerD);
+        Image = findViewById(R.id.ImgPlayer);
+        AnswerA = findViewById(R.id.BtnAnswerA);
+        AnswerB = findViewById(R.id.BtnAnswerB);
+        AnswerC = findViewById(R.id.BtnAnswerC);
+        AnswerD = findViewById(R.id.BtnAnswerD);
     }
 
 
