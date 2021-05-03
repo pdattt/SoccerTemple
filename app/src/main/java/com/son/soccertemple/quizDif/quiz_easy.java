@@ -103,7 +103,6 @@ public class quiz_easy extends Activity {
         correctAnswer = list.get(pos);
         listAnswer.add(correctAnswer.getName());
 
-
         int i = 0;
 
         while(i < 3){
@@ -116,10 +115,7 @@ public class quiz_easy extends Activity {
             i++;
         }
 
-
-
         Collections.shuffle(listAnswer);
-
 
         AnswerA.setText(listAnswer.get(0));
         AnswerB.setText(listAnswer.get(1));
