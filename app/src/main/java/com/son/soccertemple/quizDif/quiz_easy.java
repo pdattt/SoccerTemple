@@ -50,17 +50,19 @@ public class quiz_easy extends Activity {
         CreatePlayerList(number);
 
         Display(pos);
-        onClick(number);
+        setAnswerOnClick(AnswerA, number);
+        setAnswerOnClick(AnswerB, number);
+        setAnswerOnClick(AnswerC, number);
+        setAnswerOnClick(AnswerD, number);
     }
 
-    public void onClick(final int number) {
-
+    public void setAnswerOnClick(final Button BT, final int number) {
         final Intent intent;
 
-        AnswerA.setOnClickListener(new View.OnClickListener() {
+        BT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(AnswerA.getText().toString().equals(correctAnswer.getName())) {
+                if(BT.getText().toString().equals(correctAnswer.getName())) {
                     res++;
                     score += point;
                 }
@@ -73,39 +75,6 @@ public class quiz_easy extends Activity {
                 Display(pos);
             }
         });
-
-        AnswerB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(AnswerB.getText().toString().equals(correctAnswer.getName())) res++;
-                pos++;
-                if(pos >= number)
-                    finish();
-                Display(pos);
-            }
-        });
-
-        AnswerC.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(AnswerC.getText().toString().equals(correctAnswer.getName())) res++;
-                pos++;
-                if(pos >= number)
-                    finish();
-                Display(pos);
-            }
-
-        });AnswerD.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(AnswerD.getText().toString().equals(correctAnswer.getName())) res++;
-                pos++;
-                if(pos >= number)
-                    finish();
-                Display(pos);
-            }
-        });
-        //if(pos >= number)
     }
 
     private void Display(int pos) {
