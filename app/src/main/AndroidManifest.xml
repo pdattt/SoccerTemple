@@ -21,6 +21,7 @@
         <activity android:name=".quizDif.quiz_easy"/>
         <activity android:name=".quizDif.quiz_medium"/>
         <activity android:name=".quizDif.quiz_hard"/>
+        <activity android:name=".activity_result" />
     </application>
 
 </manifest>

@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import com.son.soccertemple.Player;
 import com.son.soccertemple.R;
+import com.son.soccertemple.activity_result;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -31,10 +33,14 @@ public class quiz_easy extends Activity {
     Button AnswerA, AnswerB, AnswerC, AnswerD;
     Player correctAnswer;
     LinearLayout layout;
+    TextView quizNo, quizCorrect, userInfo;
+
     int pos = 0;
     int res = 0;
     int score = 0;
     int point = 50;
+    int number;
+    String userName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +51,11 @@ public class quiz_easy extends Activity {
 
         //Receive bundle package
         //Create a list with a parameter is the number of the quiz
-        int number = 5;
+        Intent callerIntent = getIntent();
+        Bundle packageFromCaller = callerIntent.getBundleExtra("setupPackage");
 
+        number = packageFromCaller.getInt("quizNum");
+        userName = packageFromCaller.getString("userName");
         CreatePlayerList(number);
 
         Display(pos);
@@ -57,7 +66,7 @@ public class quiz_easy extends Activity {
     }
 
     public void setAnswerOnClick(final Button BT, final int number) {
-        final Intent intent;
+        final Intent intent = new Intent(quiz_easy.this, activity_result.class);
 
         BT.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +78,16 @@ public class quiz_easy extends Activity {
                 pos++;
                 if(pos >= number) {
                     layout.removeAllViews();
-                    //Add res and score to bundle package
+                    userInfo.setVisibility(View.INVISIBLE);
+                    //pass bundle package
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Name", userName);
+                    bundle.putInt("Score", score);
+                    bundle.putInt("NoOfQuiz", number);
+                    bundle.putInt("NoOfCorrect", res);
+                    intent.putExtra("resultPackage", bundle);
                     //start result Activity
+                    startActivity(intent);
                 }
                 Display(pos);
             }
@@ -89,6 +106,9 @@ public class quiz_easy extends Activity {
         int src = getResources().getIdentifier(ImgID, "drawable", getPackageName());
 
         Image.setImageResource(src);
+        quizNo.setText("Câu " + String.valueOf(pos + 1));
+        quizCorrect.setText(String.valueOf(res) + "/" + String.valueOf(number));
+        userInfo.setText("Người chơi: " + userName + " — " + "Điểm: " + String.valueOf(score) );
 
         int i = 0;
 
@@ -108,7 +128,6 @@ public class quiz_easy extends Activity {
         AnswerB.setText(listAnswer.get(1));
         AnswerC.setText(listAnswer.get(2));
         AnswerD.setText(listAnswer.get(3));
-
     }
 
     private Boolean CheckDupAnswer(List<String> listAnswer, Player player) {
@@ -128,6 +147,9 @@ public class quiz_easy extends Activity {
         AnswerC = findViewById(R.id.BtnAnswerC);
         AnswerD = findViewById(R.id.BtnAnswerD);
         layout = findViewById(R.id.layoutEasy);
+        quizNo = findViewById(R.id.TxtQuizNo);
+        quizCorrect = findViewById(R.id.txtCorrectQuiz);
+        userInfo = findViewById(R.id.txtUserInfo);
     }
 
     private void CreatePlayerList(int number) {
@@ -158,5 +180,3 @@ public class quiz_easy extends Activity {
         }
     }
 }
-
-

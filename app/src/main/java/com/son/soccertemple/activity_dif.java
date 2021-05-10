@@ -26,10 +26,14 @@ public class activity_dif extends Activity {
         btnHard = (Button) findViewById(R.id.BtnHard);
         btnBack = (Button) findViewById(R.id.BtnBack);
 
+        Intent callerIntent = getIntent();
+        final Bundle packageFromCaller = callerIntent.getBundleExtra("setupPackage");
+
         btnEasy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent easy = new Intent(activity_dif.this, quiz_easy.class);
+                easy.putExtra("setupPackage", packageFromCaller);
                 startActivity(easy);
             }
         });
@@ -37,16 +41,18 @@ public class activity_dif extends Activity {
         btnMedium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent easy = new Intent(activity_dif.this, quiz_medium.class);
-                startActivity(easy);
+                Intent medium = new Intent(activity_dif.this, quiz_medium.class);
+                medium.putExtra("setupPackage", packageFromCaller);
+                startActivity(medium);
             }
         });
 
         btnHard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent easy = new Intent(activity_dif.this, quiz_hard.class);
-                startActivity(easy);
+                Intent hard = new Intent(activity_dif.this, quiz_hard.class);
+                hard.putExtra("setupPackage", packageFromCaller);
+                startActivity(hard);
             }
         });
 
