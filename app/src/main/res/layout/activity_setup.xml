@@ -9,19 +9,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".chonsocauhoi">
-
+        tools:context=".chonsocauhoi"
+        android:background="#f5f5f5"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/Txt2"
+            android:id="@+id/TxtTitle"
             android:text="Chọn số câu hỏi"
             android:textSize="30sp"
             android:textAlignment="center"
             android:padding="20sp"
-            android:gravity="center_horizontal"
-            android:textColor="#000000"
+            android:textColor="#ffa384"
             />
 
         <TextView
@@ -65,9 +64,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_toEndOf="@id/Txt2"
-            android:layout_toRightOf="@id/Txt2" />
+            />
 
         <Button
             android:id="@+id/BtnNext"
@@ -75,9 +72,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Tiếp theo"
-            android:textSize="20dp"
-            app:backgroundTint="#2196F3"
-            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/optiondesign"
+            android:textColor="#142638"
             />
 
         <Button
@@ -86,9 +84,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Trở về"
-            android:textSize="20dp"
-            app:backgroundTint="#2196F3"
-            android:textColor="#000000"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/optiondesign"
+            android:textColor="#142638"
             />
 
     </LinearLayout>
