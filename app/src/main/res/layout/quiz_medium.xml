@@ -21,9 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:text="Trung Bình"
-            android:textStyle="bold"
+            android:padding="30sp"
+            android:text="Dễ"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="30sp" />
@@ -33,9 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:padding="30sp"
             android:text=""
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp" />
@@ -44,66 +42,58 @@
             android:id="@+id/ImgPlayer"
             android:layout_width="250sp"
             android:layout_height="250sp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/image_border"/>
+            android:layout_gravity="center" />
 
-        <Button
-            android:layout_marginTop="20dp"
-            android:id="@+id/BtnAnswerA"
-            android:layout_width="350sp"
+        <GridLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Answer1"
-            android:background="@drawable/button_rounded_conners"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:backgroundTint="#629F6D" />
+            android:columnCount="2"
+            android:orientation="horizontal"
+            android:rowCount="2">
 
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/BtnAnswerB"
-            android:layout_width="350sp"
-            android:layout_height="wrap_content"
-            android:layout_row="0"
-            android:layout_column="3"
-            android:background="@drawable/button_rounded_conners"
-            android:text="Answer 2"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:backgroundTint="#629F6D" />
+            <Button
+                android:id="@+id/BtnAnswerA"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:text="Answer1"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:backgroundTint="#CCFFFF" />
 
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/BtnAnswerC"
-            android:layout_width="350sp"
-            android:layout_height="wrap_content"
-            android:text="Answer3"
-            android:textColor="#000000"
-            android:background="@drawable/button_rounded_conners"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:backgroundTint="#629F6D" />
+            <Button
+                android:id="@+id/BtnAnswerB"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:text="Answer 2"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:backgroundTint="#CCFFFF" />
 
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/BtnAnswerD"
-            android:layout_width="350sp"
-            android:layout_height="wrap_content"
-            android:text="Answer4"
-            android:background="@drawable/button_rounded_conners"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:backgroundTint="#629F6D" />
+            <Button
+                android:id="@+id/BtnAnswerC"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:text="Answer3"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:backgroundTint="#CCFFFF" />
+
+            <Button
+                android:id="@+id/BtnAnswerD"
+                android:layout_width="200sp"
+                android:layout_height="wrap_content"
+                android:text="Answer4"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:backgroundTint="#CCFFFF" />
+        </GridLayout>
 
         <TextView
             android:id="@+id/txtCorrectQuiz"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="TextView"
+            android:layout_height="50dp"
+            android:paddingTop="10dp"
+            android:text=""
             android:textAlignment="center"
             android:textSize="20sp" />
 
@@ -118,7 +108,6 @@
         android:textColor="#000000"
         android:textSize="20sp"
         android:textAlignment="center"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
