@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <TextView
+            android:id="@+id/TxtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:text="Kết quả:"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/TxtName"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TxtTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="40dp" />
+
+        <TextView
+            android:id="@+id/TxtResult"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TxtName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="50dp" />
+
+        <TextView
+            android:id="@+id/TxtRightAnswer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TxtResult"
+            android:layout_marginLeft="80sp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="#2196F3"
+            android:text="Số câu đúng:"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/TxtRightAnswer2"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/TxtRightAnswer1"
+            android:layout_marginLeft="20sp"
+            android:layout_toRightOf="@+id/TxtRightAnswer1"
+            android:backgroundTint="#2196F3"
+            android:text=""
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/BtnPlayAgain"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TxtRightAnswer1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:backgroundTint="#629F6D"
+            android:background="@drawable/button_rounded_conners"
+            android:text="Chơi lại"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/BtnMenu"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/BtnPlayAgain"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#629F6D"
+            android:background="@drawable/button_rounded_conners"
+            android:text="Menu chính"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
