@@ -22,6 +22,9 @@
         <activity android:name=".quizDif.quiz_medium"/>
         <activity android:name=".quizDif.quiz_hard"/>
         <activity android:name=".activity_result" />
+        <activity android:name=".activity_history" />
+        <activity android:name=".activity_highscore"/>
+
     </application>
 
 </manifest>

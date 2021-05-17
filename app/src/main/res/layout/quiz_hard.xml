@@ -29,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="30sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:text=""
             android:textAlignment="center"
             android:textColor="#000000"
@@ -39,24 +40,27 @@
             android:id="@+id/ImgPlayer"
             android:layout_width="250sp"
             android:layout_height="250sp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:background="@drawable/image_border"/>
 
         <TextView
             android:id="@+id/Txt1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="30sp"
-            android:text="Câu trả lời:"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="Đáp án:"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="30sp" />
+
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/EdtAnswer"
-            android:textAlignment="center"
-            android:gravity="center_horizontal" />
+            android:layout_width="208dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/txtCorrectQuiz"
@@ -74,17 +78,22 @@
             android:layout_gravity="center"
             android:text="Vui lòng nhập vào đáp án"
             android:textAlignment="center"
+            android:layout_marginTop="15dp"
             android:textColor="#ff0000"
             android:textSize="20sp"
             android:visibility="invisible" />
 
         <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="129dp"
-            android:layout_height="36dp"
+            android:layout_width="134dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingTop="10dp"
-            android:text="Trả lời" />
+            android:layout_marginTop="20dp"
+            android:id="@+id/btnSubmit"
+            android:background="@drawable/button_rounded_conners"
+            android:backgroundTint="#629F6D"
+            android:text="Gửi"
+            android:textColor="#000000"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <TextView
