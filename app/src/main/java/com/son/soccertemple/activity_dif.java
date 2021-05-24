@@ -21,12 +21,13 @@ public class activity_dif extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
 
-        btnEasy = (Button) findViewById(R.id.BtnEasy);
-        btnMedium = (Button) findViewById(R.id.BtnMedium);
-        btnHard = (Button) findViewById(R.id.BtnHard);
-        btnBack = (Button) findViewById(R.id.BtnBack);
+        btnEasy = findViewById(R.id.BtnEasy);
+        btnMedium = findViewById(R.id.BtnMedium);
+        btnHard = findViewById(R.id.BtnHard);
+        btnBack = findViewById(R.id.BtnBack);
 
         Intent callerIntent = getIntent();
+
         final Bundle packageFromCaller = callerIntent.getBundleExtra("setupPackage");
 
         btnEasy.setOnClickListener(new View.OnClickListener() {

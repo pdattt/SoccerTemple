@@ -80,7 +80,8 @@
             android:backgroundTint="#629F6D"
             android:background="@drawable/button_rounded_conners"
             android:text="Chơi lại"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/BtnMenu"
@@ -92,7 +93,8 @@
             android:backgroundTint="#629F6D"
             android:background="@drawable/button_rounded_conners"
             android:text="Menu chính"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 

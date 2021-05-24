@@ -101,7 +101,6 @@ public class activity_setup extends Activity {
     }
 
     void Mapping() {
-        setup = findViewById(R.id.layoutSetup);
         Error = findViewById(R.id.TxtError);
         btnBack = findViewById(R.id.BtnBack);
         btnNext = findViewById(R.id.BtnNext);
