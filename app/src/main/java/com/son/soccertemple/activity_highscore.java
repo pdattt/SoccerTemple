@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -26,6 +27,7 @@ public class activity_highscore extends Activity {
     ListView listHistory;
     LinearLayout layout;
     Button back;
+    RadioButton local, global;
     ArrayList<User> list = new ArrayList<>();
 
     @Override
@@ -49,18 +51,24 @@ public class activity_highscore extends Activity {
         ArrayList<String> history = new ArrayList<>();
         int i, j;
 
-        for(i = 0; i < list.size() - 1; i++)
-            for(j = i + 1; j <list.size(); j++) {
+        for(i = 0; i < list.size() - 2; i++)
+            for(j = i + 1; j <list.size() - 2; j++) {
                 if (list.get(i).getScore() < list.get(j).getScore()) {
                     User userTemp = list.get(j);
-                    list.set(j, list.get(j));
+                    list.set(j, list.get(i));
                     list.set(i, userTemp);
                 }
             }
 
-        for(i = 0; i < 10; i++) {
+        int count = 0;
+
+        for(i = 0; i < list.size(); i++) {
+            if(count >= 10)
+                break;
+
             User user = list.get(i);
             history.add(user.toString());
+            count++;
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, history){
@@ -86,6 +94,8 @@ public class activity_highscore extends Activity {
         listHistory = findViewById(R.id.listHighscore);
         layout = findViewById(R.id.highscoreLayout);
         back = findViewById(R.id.btnBack);
+        local = findViewById(R.id.radioLocal);
+        global = findViewById(R.id.radioGlobal);
     }
 
     private void getHistoryData() {

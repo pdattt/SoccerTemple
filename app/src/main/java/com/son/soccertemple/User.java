@@ -14,7 +14,24 @@ class User {
     }
 
     public int getScore() {
+
         return Integer.parseInt(this.score);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public String toString() {

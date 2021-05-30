@@ -4,12 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.IntentCompat;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +27,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.son.soccertemple.R.raw.drump;
 
@@ -33,8 +44,6 @@ public class activity_result extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
-
-
         Mapping();
         receivePackage();
 
@@ -43,7 +52,7 @@ public class activity_result extends Activity {
         Result.setText(" " + String.valueOf(result) + "/" + String.valueOf(number));
         //Create file csv and save as history
         saveToHistory(name, score, result, number);
-
+        putHistoryToFirestore(name, score, result, number);
 
         Menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,5 +110,17 @@ public class activity_result extends Activity {
         number = packageFromCaller.getInt("NoOfQuiz");
     }
 
+    void putHistoryToFirestore(String name, int score, int result, int number) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //User newUser = new User(name, String.valueOf(score), String.valueOf(result), String.valueOf(number));
 
+        Map<String, Object> newUser = new HashMap<>();
+        newUser.put("Name", name);
+        newUser.put("Score", score);
+        newUser.put("Result", + result + "/" + number);
+
+        db.collection("History")
+                .document()
+                .set(newUser);
+    }
 }
