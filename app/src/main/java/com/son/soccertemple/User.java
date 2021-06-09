@@ -35,6 +35,9 @@ class User {
     }
 
     public String toString() {
-        return String.format("%-" + 25 + "s", name) + String.format("%-" + 23 + "s", score) + result + "/" + number;
+        return name.substring(0, 1).toUpperCase()
+                + String.format("%-" + 24 + "s", name.substring(1).toLowerCase())
+                + String.format("%-" + 21 + "s", score)
+                + result + "/" + number;
     }
 }

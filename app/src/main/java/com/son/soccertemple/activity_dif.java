@@ -57,7 +57,6 @@ public class activity_dif extends Activity {
             }
         });
 
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -10,9 +10,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,23 +27,35 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 
 public class activity_highscore extends Activity {
     ListView listHistory;
     LinearLayout layout;
     Button back;
+    RadioGroup radioGroup;
     RadioButton local, global;
     ArrayList<User> list = new ArrayList<>();
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
 
+        db = FirebaseFirestore.getInstance();
         Mapping();
+        local.setChecked(true);
         getHistoryData();
-        printHistory();
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if(local.isChecked())
+                getHistoryData();
+
+            if(global.isChecked())
+                getCloudData();
+        });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,14 +69,16 @@ public class activity_highscore extends Activity {
         ArrayList<String> history = new ArrayList<>();
         int i, j;
 
-        for(i = 0; i < list.size() - 2; i++)
-            for(j = i + 1; j <list.size() - 2; j++) {
-                if (list.get(i).getScore() < list.get(j).getScore()) {
-                    User userTemp = list.get(j);
-                    list.set(j, list.get(i));
-                    list.set(i, userTemp);
+        if(list.size() >= 2) {
+            for (i = 0; i < list.size() - 1; i++)
+                for (j = i + 1; j < list.size(); j++) {
+                    if (list.get(i).getScore() < list.get(j).getScore()) {
+                        User userTemp = list.get(j);
+                        list.set(j, list.get(i));
+                        list.set(i, userTemp);
+                    }
                 }
-            }
+        }
 
         int count = 0;
 
@@ -96,9 +116,11 @@ public class activity_highscore extends Activity {
         back = findViewById(R.id.btnBack);
         local = findViewById(R.id.radioLocal);
         global = findViewById(R.id.radioGlobal);
+        radioGroup = findViewById(R.id.radioGroup);
     }
 
     private void getHistoryData() {
+        list.clear();
         try {
             String splitBy = ", ";
             FileInputStream in = this.openFileInput("history.csv");
@@ -118,5 +140,32 @@ public class activity_highscore extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        printHistory();
+    }
+
+    private void getCloudData() {
+        list.clear();
+
+        db.collection("History").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> docList = queryDocumentSnapshots.getDocuments();
+
+                            for(DocumentSnapshot d : docList) {
+                                User user = new User();
+                                user.setName(d.get("Name").toString());
+                                user.setScore(d.get("Score").toString());
+                                String[] split = String.valueOf(d.get("Result")).split("/");
+                                user.setResult(split[0]);
+                                user.setNumber(split[1]);
+
+                                list.add(user);
+                            }
+                            printHistory();
+                        }
+                    }
+                });
     }
 }

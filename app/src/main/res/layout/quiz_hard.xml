@@ -6,6 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hint"
+        android:layout_marginStart="270dp"
+        android:layout_marginBottom="675dp"
+        android:backgroundTint="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
     <LinearLayout
         android:id="@+id/layoutHard"
         android:layout_width="match_parent"
@@ -52,8 +66,18 @@
             android:text="Đáp án:"
             android:textAlignment="center"
             android:textColor="#000000"
-            android:textSize="30sp"
-            />
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/hintText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text=""
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="25sp" />
 
         <EditText
             android:layout_width="208dp"
@@ -61,13 +85,15 @@
             android:id="@+id/EdtAnswer"
             android:layout_marginTop="15dp"
             android:layout_gravity="center"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/txtCorrectQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:paddingTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
             android:text=""
             android:textAlignment="center"
             android:textSize="20sp" />
@@ -97,6 +123,7 @@
             android:textSize="20sp" />
     </LinearLayout>
 
+    <!--
     <TextView
         android:id="@+id/txtUserInfo"
         android:layout_width="411dp"
@@ -108,5 +135,7 @@
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+        -->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

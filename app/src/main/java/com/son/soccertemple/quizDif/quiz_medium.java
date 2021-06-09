@@ -2,6 +2,7 @@ package com.son.soccertemple.quizDif;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,13 +34,15 @@ public class quiz_medium extends Activity {
     Button AnswerA, AnswerB, AnswerC, AnswerD;
     Player correctAnswer;
     LinearLayout layout;
-    TextView quizNo, quizCorrect, userInfo;
+    TextView quizNo, quizCorrect, userInfo, hint;
 
     int pos = 0;
     int res = 0;
     int score = 0;
     int point = 70;
     int number;
+    int hint_remain = 3;
+    boolean hint_mode = true;
     String userName;
 
     @Override
@@ -96,6 +99,7 @@ public class quiz_medium extends Activity {
 
     private void Display(int pos) {
         Random rand = new Random();
+        SetVisibleAnswer();
         ArrayList<String> listAnswer = new ArrayList<>();
 
         correctAnswer = quizList.get(pos);
@@ -128,6 +132,74 @@ public class quiz_medium extends Activity {
         AnswerB.setText(listAnswer.get(1));
         AnswerC.setText(listAnswer.get(2));
         AnswerD.setText(listAnswer.get(3));
+
+        //Set hint button
+
+        hint.setText("\uD83D\uDCA1 × " + hint_remain);
+
+        if(hint_remain <= 0)
+            hint_mode = false;
+        else
+            hint_mode = true;
+
+        if(hint_mode) {
+            hint.setTextColor(Color.parseColor("#202121"));
+            hint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    useHint(correctAnswer);
+                }
+            });
+        }
+    }
+
+    private void useHint(Player answer) {
+        Random rand = new Random();
+        int i = 0;
+
+        while(i<2) {
+            switch (rand.nextInt(4)) {
+                case 0: {
+                    if(AnswerA.getText().equals(answer.getName()))
+                        continue;
+                    if(AnswerA.getVisibility() == View.INVISIBLE)
+                        continue;
+                    AnswerA.setVisibility(View.INVISIBLE);
+                    break;
+                }
+                case 1: {
+                    if(AnswerB.getText().equals(answer.getName()))
+                        continue;
+                    if(AnswerB.getVisibility() == View.INVISIBLE)
+                        continue;
+                    AnswerB.setVisibility(View.INVISIBLE);
+                    break;
+                }
+                case 2: {
+                    if(AnswerC.getText().equals(answer.getName()))
+                        continue;
+                    if(AnswerC.getVisibility() == View.INVISIBLE)
+                        continue;
+                    AnswerC.setVisibility(View.INVISIBLE);
+                    break;
+                }
+                case 3: {
+                    if(AnswerD.getText().equals(answer.getName()))
+                        continue;
+                    if(AnswerD.getVisibility() == View.INVISIBLE)
+                        continue;
+                    AnswerD.setVisibility(View.INVISIBLE);
+                    break;
+                }
+            }
+            i++;
+        }
+
+        hint.setTextColor(Color.parseColor("#6d7070"));
+        hint.setOnClickListener(null);
+        hint_remain--;
+        hint_mode = false;
+        hint.setText("\uD83D\uDCA1 × " + hint_remain);
     }
 
     private Boolean CheckDupAnswer(List<String> listAnswer, Player player) {
@@ -140,6 +212,13 @@ public class quiz_medium extends Activity {
         return true;
     }
 
+    private void SetVisibleAnswer() {
+        AnswerA.setVisibility(View.VISIBLE);
+        AnswerB.setVisibility(View.VISIBLE);
+        AnswerC.setVisibility(View.VISIBLE);
+        AnswerD.setVisibility(View.VISIBLE);
+    }
+
     private void Mapping() {
         Image = findViewById(R.id.ImgPlayer);
         AnswerA = findViewById(R.id.BtnAnswerA);
@@ -147,9 +226,10 @@ public class quiz_medium extends Activity {
         AnswerC = findViewById(R.id.BtnAnswerC);
         AnswerD = findViewById(R.id.BtnAnswerD);
         quizNo = findViewById(R.id.TxtQuizNo);
-        quizCorrect = findViewById(R.id.txtCorrectQuiz);
-        userInfo = findViewById(R.id.txtUserInfo);
+        //quizCorrect = findViewById(R.id.txtCorrectQuiz);
+        //userInfo = findViewById(R.id.txtUserInfo);
         layout = findViewById(R.id.layoutMedium);
+        hint = findViewById(R.id.hint);
     }
 
     private void CreatePlayerList(int number) {

@@ -6,6 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hint"
+        android:layout_marginStart="270dp"
+        android:layout_marginBottom="675dp"
+        android:backgroundTint="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layoutMedium"
@@ -36,16 +49,15 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text=""
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20sp"
-            />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/ImgPlayer"
-            android:layout_width="250sp"
-            android:layout_height="250sp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:background="@drawable/image_border" />
@@ -60,8 +72,7 @@
             android:textColor="#000000"
             android:textSize="20sp"
             android:layout_gravity="center"
-            android:backgroundTint="#629F6D"
-            />
+            android:backgroundTint="#629F6D" />
 
         <Button
             android:id="@+id/BtnAnswerB"
@@ -102,6 +113,7 @@
             android:backgroundTint="#629F6D"
             />
 
+    <!--
         <TextView
             android:id="@+id/txtCorrectQuiz"
             android:layout_width="match_parent"
@@ -111,20 +123,22 @@
             android:textAlignment="center"
             android:textSize="20sp"
             />
+           -->
 
     </LinearLayout>
 
-    <TextView
+    <!--
+        <TextView
         android:id="@+id/txtUserInfo"
         android:layout_width="411dp"
         android:layout_height="36dp"
         android:layout_gravity="center_horizontal"
         android:text=""
         android:textColor="#000000"
-        android:textStyle="bold"
         android:textSize="20sp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+        -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

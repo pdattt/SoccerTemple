@@ -118,8 +118,8 @@ public class quiz_hard extends Activity {
         Image = findViewById(R.id.ImgPlayer);
         Submit = findViewById(R.id.btnSubmit);
         quizNo = findViewById(R.id.TxtQuizNo);
-        quizCorrect = findViewById(R.id.txtCorrectQuiz);
-        userInfo = findViewById(R.id.txtUserInfo);
+        //quizCorrect = findViewById(R.id.txtCorrectQuiz);
+        //userInfo = findViewById(R.id.txtUserInfo);
         Answer = findViewById(R.id.EdtAnswer);
         error = findViewById(R.id.TxtErrorAnswer);
         layout = findViewById(R.id.layoutHard);
