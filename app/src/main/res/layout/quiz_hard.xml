@@ -47,6 +47,8 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text=""
+            android:textSize="20sp"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="#000000"/>
 
@@ -56,17 +58,6 @@
             android:layout_height="250sp"
             android:layout_gravity="center"
             android:background="@drawable/image_border" />
-
-        <TextView
-            android:id="@+id/Txt1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:text="Đáp án:"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/hintText"
@@ -85,9 +76,11 @@
             android:id="@+id/EdtAnswer"
             android:layout_marginTop="15dp"
             android:layout_gravity="center"
+            android:hint="Đáp án"
             android:textAlignment="center"
             android:textSize="25sp" />
 
+        <!--
         <TextView
             android:id="@+id/txtCorrectQuiz"
             android:layout_width="wrap_content"
@@ -97,6 +90,7 @@
             android:text=""
             android:textAlignment="center"
             android:textSize="20sp" />
+            -->
 
         <TextView
             android:id="@+id/TxtErrorAnswer"
@@ -111,16 +105,44 @@
             android:visibility="invisible" />
 
         <Button
-            android:layout_width="134dp"
+            android:id="@+id/btnSubmit"
+            android:layout_width="171dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:id="@+id/btnSubmit"
             android:background="@drawable/button_rounded_conners"
             android:backgroundTint="#629F6D"
             android:text="Gửi"
             android:textColor="#000000"
             android:textSize="20sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+            <ProgressBar
+                android:id="@+id/progressBarCircle"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:max="100"
+                android:progress="100" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/txtCountdown"
+                android:layout_centerInParent="true"
+                android:textColor="#000000"
+                android:text="15"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
     <!--

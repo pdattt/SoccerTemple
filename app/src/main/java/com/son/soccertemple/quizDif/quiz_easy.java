@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,7 +36,8 @@ public class quiz_easy extends Activity {
     Button AnswerA, AnswerB, AnswerC, AnswerD;
     Player correctAnswer;
     LinearLayout layout;
-    TextView quizNo, quizCorrect, userInfo, hint;
+    TextView quizNo, hint, countdown;
+    CountDownTimer countDownTimer;
 
     int pos = 0;
     int res = 0;
@@ -42,6 +45,7 @@ public class quiz_easy extends Activity {
     int point = 50;
     int number;
     int hint_remain = 3;
+    int timeCountdown = 15;
     boolean hint_mode = true;
     String userName;
 
@@ -61,15 +65,53 @@ public class quiz_easy extends Activity {
         CreatePlayerList(number);
 
         Display(pos);
+        startCountdownTimer();
+
         setAnswerOnClick(AnswerA, number);
         setAnswerOnClick(AnswerB, number);
         setAnswerOnClick(AnswerC, number);
         setAnswerOnClick(AnswerD, number);
     }
 
-    public void setAnswerOnClick(final Button BT, final int number) {
-        final Intent intent = new Intent(quiz_easy.this, activity_result.class);
+    private void startCountdownTimer() {
+        Handler handler = new Handler();
 
+        countDownTimer = new CountDownTimer(timeCountdown * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                countdown.setText(String.valueOf(millisUntilFinished/1000));
+
+                if(millisUntilFinished/1000 <= 1) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            countdown.setText(String.valueOf(0));
+                        }
+                    },800);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                pos++;
+                if(pos >= number)
+                    FinishQuiz();
+
+                Display(pos);
+                startCountdownTimer();
+            }
+        };
+
+        countdown.setText(String.valueOf(timeCountdown));
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                countDownTimer.start();
+            }
+        },1000);
+    }
+
+    private void setAnswerOnClick(final Button BT, final int number) {
         BT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,23 +119,31 @@ public class quiz_easy extends Activity {
                     res++;
                     score += point;
                 }
+
                 pos++;
-                if(pos >= number) {
-                    layout.removeAllViews();
-                    userInfo.setVisibility(View.INVISIBLE);
-                    //pass bundle package
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Name", userName);
-                    bundle.putInt("Score", score);
-                    bundle.putInt("NoOfQuiz", number);
-                    bundle.putInt("NoOfCorrect", res);
-                    intent.putExtra("resultPackage", bundle);
-                    //start result Activity
-                    startActivity(intent);
-                }
+                if(pos >= number)
+                    FinishQuiz();
                 Display(pos);
+                countDownTimer.cancel();
+                startCountdownTimer();
             }
         });
+    }
+
+    private void FinishQuiz() {
+        final Intent intent = new Intent(quiz_easy.this, activity_result.class);
+
+        layout.removeAllViews();
+        //pass bundle package
+        Bundle bundle = new Bundle();
+        bundle.putString("Name", userName);
+        bundle.putInt("Score", score);
+        bundle.putInt("NoOfQuiz", number);
+        bundle.putInt("NoOfCorrect", res);
+        intent.putExtra("resultPackage", bundle);
+        //start result Activity
+        startActivity(intent);
+        finish();
     }
 
     private void Display(int pos) {
@@ -133,7 +183,6 @@ public class quiz_easy extends Activity {
         AnswerD.setText(listAnswer.get(3));
 
         //Set hint button
-
         hint.setText("\uD83D\uDCA1 × " + hint_remain);
 
         if(hint_remain <= 0)
@@ -226,6 +275,7 @@ public class quiz_easy extends Activity {
         AnswerD = findViewById(R.id.BtnAnswerD);
         layout = findViewById(R.id.layoutEasy);
         quizNo = findViewById(R.id.TxtQuizNo);
+        countdown = findViewById(R.id.txtCountdown);
         //quizCorrect = findViewById(R.id.txtCorrectQuiz);
         //userInfo = findViewById(R.id.txtUserInfo);
         hint = findViewById(R.id.hint);

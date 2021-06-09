@@ -3,6 +3,8 @@ package com.son.soccertemple.quizDif;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +34,7 @@ public class quiz_hard extends Activity {
     Button Submit;
     Player correctAnswer;
     LinearLayout layout;
-    TextView quizNo, quizCorrect, userInfo, error;
+    TextView quizNo, error, countdown;
     EditText Answer;
 
     int pos = 0;
@@ -40,7 +42,9 @@ public class quiz_hard extends Activity {
     int score = 0;
     int point = 90;
     int number;
+    int timeCountdown = 15;
     String userName;
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +63,8 @@ public class quiz_hard extends Activity {
         CreatePlayerList(number);
 
         Display(pos);
+        startCountdownTimer();
+
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,21 +82,15 @@ public class quiz_hard extends Activity {
 
                     pos++;
 
-                    if (pos >= number) {
-                        layout.removeAllViews();
-                        userInfo.setVisibility(View.INVISIBLE);
+                    if (pos >= number)
+                        FinishQuiz();
 
-                        Bundle bundle = new Bundle();
-                        bundle.putString("Name", userName);
-                        bundle.putInt("Score", score);
-                        bundle.putInt("NoOfQuiz", number);
-                        bundle.putInt("NoOfCorrect", res);
-                        intent.putExtra("resultPackage", bundle);
-                        //start result Activity
-                        startActivity(intent);
-                    }
                     Display(pos);
+                    countDownTimer.cancel();
+                    startCountdownTimer();
+
                     Answer.setText("");
+                    Answer.setHint("Đáp án");
                 }
             }
         });
@@ -107,11 +107,62 @@ public class quiz_hard extends Activity {
         int src = getResources().getIdentifier(ImgID, "drawable", getPackageName());
 
         Image.setImageResource(src);
-        quizNo.setText("Câu " + String.valueOf(pos + 1));
-        quizCorrect.setText(String.valueOf(res) + "/" + String.valueOf(number));
-        userInfo.setText("Người chơi: " + userName + " — " + "Điểm: " + String.valueOf(score) );
+        quizNo.setText("Câu " + (pos + 1));
 
-        int i = 0;
+    }
+
+    private void startCountdownTimer() {
+        Handler handler = new Handler();
+
+        countDownTimer = new CountDownTimer(timeCountdown * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                countdown.setText(String.valueOf(millisUntilFinished/1000));
+
+                if(millisUntilFinished/1000 <= 1) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            countdown.setText(String.valueOf(0));
+                        }
+                    },800);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                pos++;
+                if(pos >= number)
+                    FinishQuiz();
+
+                Display(pos);
+                startCountdownTimer();
+            }
+        };
+
+        countdown.setText(String.valueOf(timeCountdown));
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                countDownTimer.start();
+            }
+        },1000);
+    }
+
+    private void FinishQuiz() {
+        final Intent intent = new Intent(quiz_hard.this, activity_result.class);
+
+        layout.removeAllViews();
+        //pass bundle package
+        Bundle bundle = new Bundle();
+        bundle.putString("Name", userName);
+        bundle.putInt("Score", score);
+        bundle.putInt("NoOfQuiz", number);
+        bundle.putInt("NoOfCorrect", res);
+        intent.putExtra("resultPackage", bundle);
+        //start result Activity
+        startActivity(intent);
+        finish();
     }
 
     private void Mapping() {
@@ -123,6 +174,7 @@ public class quiz_hard extends Activity {
         Answer = findViewById(R.id.EdtAnswer);
         error = findViewById(R.id.TxtErrorAnswer);
         layout = findViewById(R.id.layoutHard);
+        countdown = findViewById(R.id.txtCountdown);
     }
 
     private void CreatePlayerList(int number) {
