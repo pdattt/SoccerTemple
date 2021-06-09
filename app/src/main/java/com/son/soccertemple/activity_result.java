@@ -74,6 +74,12 @@ public class activity_result extends Activity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
+
     private void saveToHistory(String name, int score, int result, int number) {
         String fileName = "history.csv";
         String filePath = "/data/data/com.son.soccertemple/files/" + fileName;
