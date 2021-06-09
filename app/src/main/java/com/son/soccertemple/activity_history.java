@@ -55,15 +55,9 @@ public class activity_history extends Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, history){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                /// Get the Item from ListView
                 View view = super.getView(position, convertView, parent);
-
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                // Set the text size 25 dip for ListView each item
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-
-                // Return the view
                 return view;
             }
         };
