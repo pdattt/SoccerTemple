@@ -20,9 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnStart, btnHighscore, btnHistory, btnExit;
     TextView text1, text2;
-    public MediaPlayer themeSong, ring;
     Handler handler = new Handler();
-
+    Intent svc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
         Mapping();
         setAnimationText();
-
-        themeSong = MediaPlayer.create(this, drump);
-        themeSong.setLooping(true);
-
-
-        themeSong.start();
+        svc = new Intent(this, BackgroundService.class);
+        startService(svc);
 
         final Animation[] fadeOutOnClick = new Animation[1];
         final Animation[] fadeInOnClick = new Animation[1];
@@ -87,19 +82,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 fadeOutOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadeout);
                 fadeInOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadein);
-                themeSong.release();
+                stopService(svc);
                 btnExit.startAnimation(fadeOutOnClick[0]);
                 btnExit.startAnimation(fadeInOnClick[0]);
                 finish();
             }
         });
-    }
-
-    public void onDestroy () {
-        //do your stuff here
-        themeSong.release();
-
-        super.onDestroy();
     }
 
     private void setAnimationText() {
@@ -138,5 +126,11 @@ public class MainActivity extends AppCompatActivity {
         btnExit = findViewById(R.id.BtnExit);
         text1 = findViewById(R.id.Txt1);
         text2 = findViewById(R.id.Txt2);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(svc);
     }
 }

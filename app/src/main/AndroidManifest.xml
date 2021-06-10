@@ -24,6 +24,7 @@
         <activity android:name=".activity_result" />
         <activity android:name=".activity_history" />
         <activity android:name=".activity_highscore"/>
+        <service android:enabled="true" android:name=".BackgroundService" />
 
     </application>
 
