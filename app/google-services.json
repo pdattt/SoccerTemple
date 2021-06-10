@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "210105672774",
+    "project_id": "soccertemple-7a11e",
+    "storage_bucket": "soccertemple-7a11e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210105672774:android:0d412ba6b3d05618dad647",
+        "android_client_info": {
+          "package_name": "com.son.soccertemple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "210105672774-bp8br0ne6e0nqta4vsde8rvbe52bdf22.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeK6Noog5czj2LKt7XRKKKnXggmZkLXfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "210105672774-bp8br0ne6e0nqta4vsde8rvbe52bdf22.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
