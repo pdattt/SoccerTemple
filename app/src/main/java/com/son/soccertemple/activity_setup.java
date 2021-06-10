@@ -30,16 +30,34 @@ public class activity_setup extends Activity {
     TextView Error;
     LinearLayout setup;
     int pos;
-    MediaPlayer mediaPlayer;
+
+    //1 is on - 2 is off
+    int music_mode = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
-        mediaPlayer = MediaPlayer.create(this, R.raw.drump);
 
         Mapping();
         createSpin();
+        Button btn = findViewById(R.id.btn);
+        Intent svc = new Intent(this, BackgroundService.class);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(music_mode == 1) {
+                    stopService(svc);
+                    music_mode = 2;
+                }
+                else {
+                    startService(svc);
+                    music_mode = 1;
+                }
+
+            }
+        });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
