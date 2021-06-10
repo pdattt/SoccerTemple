@@ -2,6 +2,7 @@ package com.son.soccertemple.quizDif;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class quiz_hard extends Activity {
     private ArrayList<Player> list = new ArrayList<>();
@@ -34,7 +36,7 @@ public class quiz_hard extends Activity {
     Button Submit;
     Player correctAnswer;
     LinearLayout layout;
-    TextView quizNo, error, countdown;
+    TextView quizNo, error, countdown, hintText, hint;
     EditText Answer;
 
     int pos = 0;
@@ -43,6 +45,8 @@ public class quiz_hard extends Activity {
     int point = 90;
     int number;
     int timeCountdown = 15;
+    int hint_remain = 3;
+    boolean hint_mode = true;
     String userName;
     CountDownTimer countDownTimer;
 
@@ -73,7 +77,6 @@ public class quiz_hard extends Activity {
                 }
                 else {
                     final Intent intent = new Intent(quiz_hard.this, activity_result.class);
-                    error.setVisibility(View.INVISIBLE);
 
                     if (Answer.getText().toString().trim().toLowerCase().equals(correctAnswer.getName().trim().toLowerCase())) {
                         res++;
@@ -97,18 +100,69 @@ public class quiz_hard extends Activity {
     }
 
     private void Display(int pos) {
-        ArrayList<String> listAnswer = new ArrayList<>();
 
         correctAnswer = quizList.get(pos);
-        listAnswer.add(correctAnswer.getName());
-
         String ImgID = "uncen_" + correctAnswer.getID();
+        error.setVisibility(View.INVISIBLE);
+        hintText.setText("");
 
         int src = getResources().getIdentifier(ImgID, "drawable", getPackageName());
 
         Image.setImageResource(src);
         quizNo.setText("Câu " + (pos + 1));
 
+        //Set hint button
+        hint.setText("\uD83D\uDCA1 × " + hint_remain);
+
+        if(hint_remain <= 0)
+            hint_mode = false;
+        else
+            hint_mode = true;
+
+        if(hint_mode) {
+            hint.setTextColor(Color.parseColor("#202121"));
+            hint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    hintText.setText(useHint(correctAnswer));
+                }
+            });
+        }
+    }
+
+    private String useHint(Player answer) {
+        Random rand = new Random();
+        String playerName = answer.getName();
+        StringBuilder hintName = new StringBuilder(playerName);
+
+        // Pick a number of characters from the answer to hide
+        int number = (int) (playerName.trim().length() * 0.4);
+
+        for(int i = 0; i < number; i++) {
+            int randNum = rand.nextInt(playerName.length());
+
+            if(hintName.charAt(randNum) == '∙' || hintName.charAt(randNum) == ' ')
+                continue;
+
+            hintName.setCharAt(randNum, '∙');
+        }
+
+        hint.setTextColor(Color.parseColor("#6d7070"));
+        hint.setOnClickListener(null);
+        hint_remain--;
+        hint_mode = false;
+        hint.setText("\uD83D\uDCA1 × " + hint_remain);
+
+        return hintName.toString();
+    }
+
+    private char[] stringToArray(String string) {
+        char[] chars= new char[string.length()];
+
+        for(int i = 0; i < string.length(); i++)
+            chars[i] = string.charAt(i);
+
+        return chars;
     }
 
     private void startCountdownTimer() {
@@ -169,12 +223,12 @@ public class quiz_hard extends Activity {
         Image = findViewById(R.id.ImgPlayer);
         Submit = findViewById(R.id.btnSubmit);
         quizNo = findViewById(R.id.TxtQuizNo);
-        //quizCorrect = findViewById(R.id.txtCorrectQuiz);
-        //userInfo = findViewById(R.id.txtUserInfo);
         Answer = findViewById(R.id.EdtAnswer);
         error = findViewById(R.id.TxtErrorAnswer);
         layout = findViewById(R.id.layoutHard);
         countdown = findViewById(R.id.txtCountdown);
+        hint = findViewById(R.id.hint);
+        hintText = findViewById(R.id.hintText);
     }
 
     private void CreatePlayerList(int number) {
