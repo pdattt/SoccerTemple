@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class quiz_hard extends Activity {
     TextView quizNo, error, countdown, hintText, hint;
     EditText Answer;
     Intent svc;
+    ImageButton btnSound;
 
     int pos = 0;
     int res = 0;
@@ -49,6 +51,7 @@ public class quiz_hard extends Activity {
     int timeCountdown = 15;
     int hint_remain = 3;
     boolean hint_mode = true;
+    int music_mode = 1;
     String userName;
     CountDownTimer countDownTimer;
 
@@ -68,6 +71,7 @@ public class quiz_hard extends Activity {
         number = packageFromCaller.getInt("quizNum");
         userName = packageFromCaller.getString("userName");
         CreatePlayerList(number);
+        setSoundButton();
 
         Display(pos);
         startCountdownTimer();
@@ -227,6 +231,7 @@ public class quiz_hard extends Activity {
         countdown = findViewById(R.id.txtCountdown);
         hint = findViewById(R.id.hint);
         hintText = findViewById(R.id.hintText);
+        btnSound = findViewById(R.id.BtnSound);
     }
 
     private void CreatePlayerList(int number) {
@@ -255,6 +260,27 @@ public class quiz_hard extends Activity {
         for(int i = 0; i <= number; i++) {
             quizList.add(list.get(i));
         }
+    }
+
+    private void setSoundButton() {
+
+        btnSound.setBackground(getResources().getDrawable(R.drawable.icon_unmute));
+
+        btnSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(music_mode == 1) {
+                    stopService(svc);
+                    btnSound.setBackground(getResources().getDrawable(R.drawable.icon_mute));
+                    music_mode = 2;
+                }
+                else {
+                    startService(svc);
+                    btnSound.setBackground(getResources().getDrawable(R.drawable.icon_unmute));
+                    music_mode = 1;
+                }
+            }
+        });
     }
 
     @Override
