@@ -133,4 +133,16 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         stopService(svc);
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        startService(svc);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(svc);
+    }
 }

@@ -3,7 +3,6 @@ package com.son.soccertemple;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -12,14 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 
 import androidx.annotation.Nullable;
-
-import java.util.Collections;
 
 public class activity_setup extends Activity {
 
@@ -28,8 +25,9 @@ public class activity_setup extends Activity {
     Integer Number[] = {5, 6, 7, 8, 9, 10};
     EditText Name;
     TextView Error;
-    LinearLayout setup;
+    ImageButton btnSound;
     int pos;
+    Intent svc;
 
     //1 is on - 2 is off
     int music_mode = 1;
@@ -41,23 +39,8 @@ public class activity_setup extends Activity {
 
         Mapping();
         createSpin();
-        Button btn = findViewById(R.id.btn);
-        Intent svc = new Intent(this, BackgroundService.class);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(music_mode == 1) {
-                    stopService(svc);
-                    music_mode = 2;
-                }
-                else {
-                    startService(svc);
-                    music_mode = 1;
-                }
-
-            }
-        });
+        svc = new Intent(this, BackgroundService.class);
+        setSoundButton();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,12 +101,34 @@ public class activity_setup extends Activity {
         });
     }
 
+    private void setSoundButton() {
+
+        btnSound.setBackground(getResources().getDrawable(R.drawable.icon_unmute));
+
+        btnSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(music_mode == 1) {
+                    stopService(svc);
+                    btnSound.setBackground(getResources().getDrawable(R.drawable.icon_mute));
+                    music_mode = 2;
+                }
+                else {
+                    startService(svc);
+                    btnSound.setBackground(getResources().getDrawable(R.drawable.icon_unmute));
+                    music_mode = 1;
+                }
+            }
+        });
+    }
+
     void Mapping() {
         Error = findViewById(R.id.TxtError);
         btnBack = findViewById(R.id.BtnBack);
         btnNext = findViewById(R.id.BtnNext);
         Name = findViewById(R.id.EdtName);
         sp =  findViewById(R.id.spinNumber);
+        btnSound = findViewById(R.id.BtnSound);
     }
 
     void createSpin() {
@@ -164,5 +169,11 @@ public class activity_setup extends Activity {
     public void finish() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         super.finish();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startService(svc);
     }
 }

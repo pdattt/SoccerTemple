@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.son.soccertemple.BackgroundService;
 import com.son.soccertemple.Player;
 import com.son.soccertemple.R;
 import com.son.soccertemple.activity_result;
@@ -38,6 +39,7 @@ public class quiz_medium extends Activity {
     LinearLayout layout;
     TextView quizNo, hint, countdown;
     CountDownTimer countDownTimer;
+    Intent svc;
 
     int pos = 0;
     int res = 0;
@@ -55,6 +57,8 @@ public class quiz_medium extends Activity {
         setContentView(R.layout.quiz_medium);
 
         Mapping();
+        svc = new Intent(this, BackgroundService.class);
+
         //Receive bundle package
         //Create a list with a parameter is the number of the quiz
         Intent callerIntent = getIntent();
@@ -94,11 +98,14 @@ public class quiz_medium extends Activity {
             @Override
             public void onFinish() {
                 pos++;
-                if(pos >= number)
+                if(pos >= number) {
                     FinishQuiz();
-
-                Display(pos);
-                startCountdownTimer();
+                    countDownTimer.cancel();
+                }
+                else {
+                    Display(pos);
+                    startCountdownTimer();
+                }
             }
         };
 
@@ -143,6 +150,7 @@ public class quiz_medium extends Activity {
         intent.putExtra("resultPackage", bundle);
         //start result Activity
         startActivity(intent);
+        stopService(svc);
         finish();
     }
 
@@ -256,7 +264,6 @@ public class quiz_medium extends Activity {
             if(listAnswer.get(i).equals(player.getName()))
                 return false;
         }
-
         return true;
     }
 
@@ -307,5 +314,12 @@ public class quiz_medium extends Activity {
         for(int i = 0; i <= number; i++) {
             quizList.add(list.get(i));
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        countDownTimer.cancel();
+        finish();
     }
 }
