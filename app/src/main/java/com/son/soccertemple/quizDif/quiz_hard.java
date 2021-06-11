@@ -3,6 +3,7 @@ package com.son.soccertemple.quizDif;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -91,13 +92,13 @@ public class quiz_hard extends Activity {
                     }
 
                     pos++;
-
-                    if (pos >= number)
-                        FinishQuiz();
-
-                    Display(pos);
                     countDownTimer.cancel();
-                    startCountdownTimer();
+                    if(pos >= number)
+                        FinishQuiz();
+                    else {
+                        Display(pos);
+                        startCountdownTimer();
+                    }
 
                     Answer.setText("");
                     Answer.setHint("Đáp án");
@@ -184,10 +185,9 @@ public class quiz_hard extends Activity {
             @Override
             public void onFinish() {
                 pos++;
-                if(pos >= number) {
+                countDownTimer.cancel();
+                if(pos >= number)
                     FinishQuiz();
-                    countDownTimer.cancel();
-                }
                 else {
                     Display(pos);
                     startCountdownTimer();
@@ -207,7 +207,6 @@ public class quiz_hard extends Activity {
     private void FinishQuiz() {
         final Intent intent = new Intent(quiz_hard.this, activity_result.class);
 
-        layout.removeAllViews();
         //pass bundle package
         Bundle bundle = new Bundle();
         bundle.putString("Name", userName);
@@ -215,10 +214,24 @@ public class quiz_hard extends Activity {
         bundle.putInt("NoOfQuiz", number);
         bundle.putInt("NoOfCorrect", res);
         intent.putExtra("resultPackage", bundle);
-        //start result Activity
-        startActivity(intent);
         stopService(svc);
-        finish();
+        playWhitsle();
+        //start result Activity
+        //delay for 1,5s
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                layout.removeAllViews();
+                startActivity(intent);
+                finish();
+            }
+        },3000);
+    }
+
+    private void playWhitsle() {
+        MediaPlayer whitsle = MediaPlayer.create(this,R.raw.referee_whistle);
+        whitsle.start();
+        whitsle.setLooping(false);
     }
 
     private void Mapping() {
