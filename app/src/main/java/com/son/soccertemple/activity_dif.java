@@ -2,6 +2,7 @@ package com.son.soccertemple;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ public class activity_dif extends Activity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 finish();
             }
         });
@@ -46,6 +48,7 @@ public class activity_dif extends Activity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 Intent callerIntent = getIntent();
                 final Bundle packageFromCaller = callerIntent.getBundleExtra("setupPackage");
                 Intent hard = new Intent(activity_dif.this, className);
@@ -55,6 +58,12 @@ public class activity_dif extends Activity {
         });
     }
 
+    private void setPopSound() {
+        MediaPlayer pop = MediaPlayer.create(this,R.raw.pop);
+        pop.start();
+        pop.setLooping(false);
+    }
+
     private void setSoundButton() {
 
         btnSound.setBackground(getResources().getDrawable(R.drawable.icon_unmute));
@@ -62,6 +71,7 @@ public class activity_dif extends Activity {
         btnSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 if(music_mode == 1) {
                     stopService(svc);
                     btnSound.setBackground(getResources().getDrawable(R.drawable.icon_mute));

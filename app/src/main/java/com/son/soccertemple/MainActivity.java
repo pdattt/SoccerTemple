@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 Intent game = new Intent(MainActivity.this, activity_setup.class);
                 fadeOutOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadeout);
                 fadeInOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadein);
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         btnHighscore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 Intent game = new Intent(MainActivity.this, activity_highscore.class);
                 fadeOutOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadeout);
                 fadeInOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadein);
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 Intent history = new Intent(MainActivity.this, activity_history.class);
                 fadeOutOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadeout);
                 fadeInOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadein);
@@ -80,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 fadeOutOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadeout);
                 fadeInOnClick[0] = AnimationUtils.loadAnimation(MainActivity.this,R.anim.fadein);
                 stopService(svc);
@@ -88,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setPopSound() {
+        MediaPlayer pop = MediaPlayer.create(this,R.raw.pop);
+        pop.start();
+        pop.setLooping(false);
     }
 
     private void setAnimationText() {

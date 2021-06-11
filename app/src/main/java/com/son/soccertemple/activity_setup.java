@@ -3,6 +3,7 @@ package com.son.soccertemple;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -38,6 +39,7 @@ public class activity_setup extends Activity {
         setContentView(R.layout.activity_setup);
 
         Mapping();
+
         createSpin();
         svc = new Intent(this, BackgroundService.class);
         setSoundButton();
@@ -45,6 +47,7 @@ public class activity_setup extends Activity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 finish();
             }
         });
@@ -52,6 +55,7 @@ public class activity_setup extends Activity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 String userName = Name.getText().toString().trim();
 
                 if(userName.equals("")) {
@@ -108,6 +112,7 @@ public class activity_setup extends Activity {
         btnSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 if(music_mode == 1) {
                     stopService(svc);
                     btnSound.setBackground(getResources().getDrawable(R.drawable.icon_mute));
@@ -120,6 +125,12 @@ public class activity_setup extends Activity {
                 }
             }
         });
+    }
+
+    private void setPopSound() {
+        MediaPlayer pop = MediaPlayer.create(this,R.raw.pop);
+        pop.start();
+        pop.setLooping(false);
     }
 
     void Mapping() {

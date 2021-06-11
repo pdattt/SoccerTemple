@@ -126,6 +126,7 @@ public class quiz_medium extends Activity {
         BT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 if(BT.getText().toString().equals(correctAnswer.getName())) {
                     res++;
                     score += point;
@@ -222,6 +223,7 @@ public class quiz_medium extends Activity {
             hint.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    setPopSound();
                     useHint(correctAnswer);
                 }
             });
@@ -301,11 +303,17 @@ public class quiz_medium extends Activity {
         AnswerD = findViewById(R.id.BtnAnswerD);
         layout = findViewById(R.id.layoutMedium);
         quizNo = findViewById(R.id.TxtQuizNo);
-        countdown = findViewById(R.id.txtCountdown);
+        countdown = findViewById(R.id.txtCountdown);    
         //quizCorrect = findViewById(R.id.txtCorrectQuiz);
         //userInfo = findViewById(R.id.txtUserInfo);
         hint = findViewById(R.id.hint);
         btnSound = findViewById(R.id.BtnSound);
+    }
+
+    private void setPopSound() {
+        MediaPlayer pop = MediaPlayer.create(this,R.raw.pop);
+        pop.start();
+        pop.setLooping(false);
     }
 
     private void CreatePlayerList(int number) {
@@ -343,6 +351,7 @@ public class quiz_medium extends Activity {
         btnSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 if(music_mode == 1) {
                     stopService(svc);
                     btnSound.setBackground(getResources().getDrawable(R.drawable.icon_mute));

@@ -80,6 +80,7 @@ public class quiz_hard extends Activity {
         Submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 if (Answer.getText().toString().trim().equals("")) {
                     error.setVisibility(View.VISIBLE);
                 }
@@ -132,6 +133,7 @@ public class quiz_hard extends Activity {
             hint.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    setPopSound();
                     hintText.setText(useHint(correctAnswer));
                 }
             });
@@ -202,6 +204,12 @@ public class quiz_hard extends Activity {
                 countDownTimer.start();
             }
         },1000);
+    }
+
+    private void setPopSound() {
+        MediaPlayer pop = MediaPlayer.create(this,R.raw.pop);
+        pop.start();
+        pop.setLooping(false);
     }
 
     private void FinishQuiz() {
@@ -282,6 +290,7 @@ public class quiz_hard extends Activity {
         btnSound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 if(music_mode == 1) {
                     stopService(svc);
                     btnSound.setBackground(getResources().getDrawable(R.drawable.icon_mute));

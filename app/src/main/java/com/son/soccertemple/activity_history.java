@@ -1,6 +1,7 @@
 package com.son.soccertemple;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -38,10 +39,17 @@ public class activity_history extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setPopSound();
                 finish();
             }
         });
 
+    }
+
+    private void setPopSound() {
+        MediaPlayer pop = MediaPlayer.create(this,R.raw.pop);
+        pop.start();
+        pop.setLooping(false);
     }
 
     private void printHistory() {
